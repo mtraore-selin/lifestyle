@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
 
 const routes = require("./routes");
@@ -7,8 +8,10 @@ const { PORT, HOST } = require("./config/config");
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(express.json());
+
+app.use(routes);
 
 // Serve up static assets
 app.use(express.static(path.join(__dirname, "./client/build")));
@@ -21,8 +24,6 @@ app.get("/api/health", (req, res) => {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
-
-app.use(routes);
 
 db.once("open", () => {
   app.listen(PORT, () => {
