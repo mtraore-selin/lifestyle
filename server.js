@@ -3,7 +3,7 @@ const path = require("path");
 
 const routes = require("./routes");
 const db = require("./config/connection");
-const { NODE_ENV, PORT, HOST } = require("./config/config");
+const { PORT, HOST } = require("./config/config");
 
 const app = express();
 
